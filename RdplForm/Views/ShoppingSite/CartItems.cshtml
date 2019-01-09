@@ -1,0 +1,107 @@
+﻿@model IEnumerable<RdplForm.Models.CartItemsViewModel>
+
+@{
+    ViewBag.Title = "CartItems";
+    Layout = "~/Views/Shared/_SiteMaster.cshtml";
+}
+
+@if(Model.Count() !=0)
+{
+
+<h2>CartItems</h2>
+<div class="col-lg-8 col-xs-6">
+    <section class="content">
+        <div class="row">
+            @foreach (var item in Model)
+{
+    <div class="slide_@item.ProductId">
+        <div class="col-lg-12 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-yellow">
+                <div class="inner">
+                    <h3 style="color:brown">@item.CompanyName</h3>
+                    <p style="color:white">Rs @item.Price</p>
+                    <p style="color:black">@item.ProdDescription</p>
+                    <p style="color: white">Quantity:@item.Quantity</p>
+                </div>
+                <div class="quantity buttons_added ">
+                    <input type="button" value="-" class="minus bg-aqua" onclick="SubItemInCart(@item.ProductId)">
+                    <input type="number" step="1" min="1" max="" name="quantity" value="@item.Quantity" title="Qty" class="input-text qty text bg-aqua-active" @*size="4"*@ pattern="" id="txtPlus_@item.ProductId">
+                    <input type="button" value="+" class="plus bg-aqua" onclick="additemincart(@item.ProductId)">
+                </div>
+                <div>
+                    <button class="btn-warning" id="btnRemoveItem" value="Remove" style="color :red" onclick="RemoveFromCart(@item.ProductId)">Remove</button>
+                </div>
+                <div class="icon">
+                    <img src="@item.Images" width="100" height="100" />
+                </div>
+                <a href="/ShoppingSite/ShippingDetails/@item.Id" class="small-box-footer" style="background-color: gray;">
+                    BUY NOW <i class="fa fa-arrow-circle-right"></i>
+
+                </a>
+            </div>
+        </div>
+    </div>
+}
+        </div>
+    </section>
+</div>
+
+
+<div class="col-lg-4 col-xs-6">
+    <div class="small-box bg-yellow">
+        <section class="content">
+            <div class="row">
+                <h3>Total Amount</h3>
+                @{ var Total = 0;}
+                @foreach (var item in Model)
+                {
+                 <div class="box-body" style="display:block;">
+                  @item.CompanyName x @(item.Quantity) =@Convert.ToDecimal((item.Quantity * item.Price)).ToString("#,##0")
+                  @{Total += (item.Quantity * item.Price);}
+            </div>
+                    }
+
+                    <!-- small box -->
+
+
+                    @*<h4 style="color:brown">@item.CompanyName</h4>
+                    <p style="color:white">Price:Rs @item.Price</p>*@
+                    @*<p style="color:black">@item.ProdDescription</p>*@
+                    @*<p style="color: white">Quantity:@item.Quantity</p>*@
+                     
+                    @*<div class="icon">
+                            <img src="@item.Images" width="100" height="100" />
+                        </div>*@
+                    
+                  
+   
+                <div class="box-body" style="display:block;">
+                    Total Amount=@Convert.ToDecimal(Total.ToString("#,##0"))
+                </div>
+        
+</div>
+</section>
+</div>
+    <div class="small-box bg-yellow">
+        <a href="/ShoppingSite/ShippingDetails" class="small-box-footer" style="background-color: gray;">
+            Buy Now <i class="fa fa-arrow-circle-right"></i>
+
+        </a>
+    </div>
+</div>
+}
+else
+{
+   <h3 style="text-align :center"> Your Cart is Empty</h3>
+    <p style="text-align :center"><br /><br />
+        Add Items into your Cart
+    </p>
+}
+<div>
+    @Html.ActionLink("Back to Home ", "ShoppingPage")
+</div>
+<script>
+    
+     
+</script>

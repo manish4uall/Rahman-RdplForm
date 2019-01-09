@@ -1,0 +1,341 @@
+﻿
+@{
+    ViewBag.Title = "EmpDetail";
+}
+
+<h2>Customer  Detail</h2>
+<h1> Form</h1>
+<div class="row ">
+    <div class="col-md-8">
+
+    </div>
+
+   
+<div class="row col-md-4">
+    <input type="button" id="btnsave" value="Save" class="btn-success" />
+    <input type="button" id="btnlist" value="List" class="btn-default" />
+    <input type="button" id="btnnew" value="New" class="btn-primary" onclick="ClearPage()" />
+    <input type="button" id="btndelete" value="Delete" class="btn-danger"/>
+   <div>
+       <label class="">@ViewBag.msg</label>
+   </div>
+</div>
+    </div>
+
+@*<div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+</div>*@
+
+    
+    <form id="ordmstForm" class="col-md-8">
+        <div class="form-group">
+
+            <label>Order No:</label> <input type="number" id="txtno" class="form-control" placeholder=" Enter Order No" /><br /><br />
+            <label>Date:</label> <input type="date" id="txtDate" class="form-control" placeholder=" Enter Date" /><br /><br />
+
+            <label>Customer Name:</label><input type="text" id="txtCustName" class="form-control" placeholder=" Enter Customer Name " /><br /><br />
+            <input type="button" id="btnAdd" value="Add" class="btn-warning" /><br />
+
+        </div>
+</form>
+
+<style>
+    table {
+  border-collapse: collapse;
+}
+    table {
+  width: 100%;
+}
+
+th {
+  height: 50px;
+}
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
+<table id="tblDisplay" class="table-bordered">
+    <thead>
+        <tr>
+            <td>Item</td>
+            <td>Quantity</td>
+            <td>Rate</td>
+           <td>Amount</td>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@*modal for product details*@
+
+<div id="modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                @*<a href="#" class="close" data-dismiss="modal">X</a>*@
+                <input type="button" value="X" data-dismiss="modal" class="btn-danger close"  />
+            </div>
+            <h3>Enter Product Details</h3>
+            <div class="modal-body">
+                <form id="OrdDtForm">
+                    <div class="form-group">
+                        Item : <input type="text" id="txtItem" class="form-control" placeholder=" Enter Item " /><br /><br />
+                        Quantity : <input type="number" id="txtQauntity" class="form-control" placeholder=" Enter Quantity " /><br /><br />
+                        Rate : <input type="number" id="txtRate" class="form-control" placeholder=" Enter Rate "><br /><br />
+                        <input type="hidden" id="hdnEditId" />
+                        <input type="button" value="Save" id="btnDetailSave" class="btn-success"/>
+                        </div>
+               </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+ @*Second modal for order details*@
+<div id="Ordermodal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal">X</a>
+            </div>
+            <h3> Order Details</h3>
+            <div class="modal-body">
+                <table id="tblCust">
+                    <thead>
+                        <tr>
+                           
+                                <td> Order No.</td>
+                                <td>Date</td>
+                                <td>Customer Name</td>
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+
+                </table>
+                
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+
+
+    // script for second modal order details
+
+
+
+
+    $("#btnlist").click(function () {
+        console.log('click');
+        $("#Ordermodal").modal("show");
+    });
+    var arr = [];
+    $("#btnsave").click(function () {
+        finalSave();
+        //console.log('click');
+        //var No = $("#txtno").val();
+        //var Date = $("#txtDate").val();
+        //var CustomerName = $("#txtCustName").val();
+
+        //var id = Math.floor(Math.random() * (999 - 1) + 1);
+
+        //var obj = {
+        //    No: No,
+        //    Date: Date,
+        //    CustomerName:CustomerName,
+           
+        //    editId:id
+        //}
+        //arr.push(obj);
+        //$("#tblCust tbody").append('<tr><td>'+ No +'</td><td>'+ Date +'</td><td>'+ Rate +'</td></tr>');
+        //console.log(arr);
+
+        //$("#modal").modal("hide");
+
+
+    });
+
+        //Script for first modal product details
+
+
+    $("#btnAdd").click(function () {
+        console.log('click');
+        $("#modal").modal("show");
+    });
+    var arr = [];
+    $("#btnDetailSave").click(function () {
+        console.log('click');
+        var Item = $("#txtItem").val();
+        var Quantity = $("#txtQauntity").val();
+        var Rate = $("#txtRate").val();
+
+        var id = Math.floor(Math.random() * (999 - 1) + 1);
+
+        var obj = {
+            Item: Item,
+            Quantity: Quantity,
+            Rate:Rate,
+           
+            editId:id
+        }
+        arr.push(obj);
+        $("#tblDisplay tbody").append('<tr><td>'+ Item +'</td><td>'+ Quantity +'</td><td>'+ Rate +'</td><td>'+ Quantity*Rate+'</td></tr>');
+        console.log(arr);
+
+        $("#modal").modal("hide");
+    })
+
+    //$("#btnbEditForm").click(function () {
+    //    console.log('editsave');
+    //    var newName = $("#txtxEditName").val();  
+    //    console.log('newName', newName);
+    //    var editId = $("#hdnEditId").val();
+    //    console.log('editId', editId);
+    //    for (var i = 0; i < arr.length; i++) {
+    //        if (arr[i].editId == editId) {
+    //            arr[i].name = newName;
+    //            break;
+    //        }
+    //    }
+    //    console.log('arrupdated', arr);
+    //    tableDisplay(arr);
+    //    $("#modal").modal("hide");
+    //});
+
+
+    //function editData(id) {
+
+    //    var editedVal=arr.filter(el=> {
+    //        return el.editId == id
+    //    });
+    //    console.log('id', editedVal);
+    //    $("#txtxEditName").val(editedVal[0].name);
+    //    $("#hdnEditId").val(editedVal[0].editId);
+    //    $("#modal").modal("show");
+    //}
+
+    function tableDisplay(tblArr) {
+
+        $("#tblDisplay tbody").html("");
+        $.each(tblArr, function (i, item) {
+            $("#tblDisplay tbody").append('<tr><td>' + item.name + '</td><td><input type="button" id="btnEdit" value="Edit" onclick="editData(' + item.editId + ')" /></td></tr>');
+        });
+
+    }
+    var arr=[];
+    function SaveToDb()
+    {
+        $("#btnsave").click(function(){
+           
+            console.log('click');
+            var No = $("#txtno").val();
+            var Date = $("#txtDate").val();
+            var CustomerName = $("#txtCustName").val();
+
+                
+
+            var obj = {
+                No: No,
+                Date: Date,
+                CustomerName:CustomerName,
+            }
+            arr.push(obj);
+            
+                
+
+        });
+    }
+    function finalSave(){
+        var No = $("#txtno").val();
+        var Date = $("#txtDate").val();
+        var CustomerName = $("#txtCustName").val();
+
+                
+
+        var obj = {
+            No: No,
+            Date: Date,
+            CustomerName:CustomerName,
+            OrderDetail :arr
+        }
+
+        $.ajax({
+            url:'SaveEmpDetail',
+            type:'POST',
+            contentType: 'application/json',
+            dataType: 'json',
+            data: JSON.stringify(obj),
+            success: function (data) {
+                console.log(data);
+                alert('Data Successfully Saved');
+            },
+            error:function(data){
+                console.log("failed to save data")
+            }
+
+                        
+        });
+    }
+
+
+    // calling function for list Button
+
+
+    $("#btnlist").click(function () {
+        console.log('click');
+       
+        ShowDetail();
+    });
+
+
+
+    function ShowDetail() {
+
+        $.ajax({
+            url: 'List',
+            success: function (data) {
+                console.log("here is the list of Customers", data);
+                listOfCust(data);
+            },
+            error: function (data) {
+                console.log("failed to get the customers detail");
+
+
+        }
+
+
+
+        })
+
+    }
+    function listOfCust(data) {
+        $("#tblCust tbody").html("");
+        $.each(data, function (i, item) {
+            $("#tblCust tbody").append('<tr><td>' + item.OrderNo + '</td><td>' + ToJavaScriptDate(item.OrdDate) + '</td><td>' + item.CustName + '</td></tr>');
+        });
+
+    }
+    function ToJavaScriptDate(value) {
+        var pattern = /Date\(([^)]+)\)/;
+        var results = pattern.exec(value);
+        var dt = new Date(parseFloat(results[1]));
+        return (dt.getDate() + "-" + (dt.getMonth() + 1) + "-" + dt.getFullYear());
+    }
+    function ClearPage() {
+
+        $("#tblDisplay tbody").html("");
+        arr = [];
+        $("#ordmstForm").trigger("reset");
+        $("#OrdDtForm").trigger("reset");
+    }
+
+</script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,115 @@
+﻿@model RdplForm.Models.CustDetail
+
+@{
+    ViewBag.Title = "ShippingDetails";
+    Layout = "~/Views/Shared/_SiteMaster.cshtml";
+}
+
+<h2>ShippingDetails</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        
+        <hr />
+        @Html.ValidationSummary(true)
+
+        
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CustName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CustName)
+                @Html.ValidationMessageFor(model => model.CustName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Address)
+                @Html.ValidationMessageFor(model => model.Address)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MobileNO, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MobileNO)
+                @Html.ValidationMessageFor(model => model.MobileNO)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10" style="color :green">
+                <h4>Pay Mode : Only Cash On Delivery</h4>
+
+            </div>
+            </div>
+
+         @*Amount details of all the buying products*@
+
+
+        <div class="col-md-4">
+            <!-- small box -->
+            <div class="small-box bg-gray-light" style="padding-left:30px">
+                <h2 style="color: black;"><b><u>Total Item</u></b></h2>
+
+                <div id="RefreshAmount">
+                    @*@{ var total = 0;}
+                    @foreach (var item in Model)
+                    {
+                        <div>
+                            <p style="color: black;"> @item.CompanyName  x @item.Quantity = @Convert.ToDecimal((item.Quantity * item.Price)).ToString("#,##0")</p>
+                            @{total += (item.Quantity * item.Price);}
+                        </div>
+                    }*@
+                    <div id="dvTotalView">
+                    </div>
+
+                    <div class="box-body" id="dvtotal" style="color:black">
+                        @*<b>Total Amount</b> = @Convert.ToDecimal(total.ToString("#,##0"))*@
+                    </div><!-- /.box-body -->
+                </div>
+            </div>
+            <div>
+                <div style="padding-left: 50%">
+                    @*<a href="/Ekart/Shipping" class="btn btn-default">Place Order</a>*@
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Place Order" class="btn btn-default" />
+               
+            </div>
+            <div class="col-md-offset-2 col-md-10">
+                <label class="label-success  " id=""> @ViewBag.Success  </label>
+            </div>
+            </div>
+    </div> 
+    
+    
+   
+
+    
+    
+}
+
+
+
+<div>
+    @Html.ActionLink("Back to Home ", "ShoppingPage")
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script>
+    Shipping();
+</script>

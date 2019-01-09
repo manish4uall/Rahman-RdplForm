@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6fc27e1aa6fd4217b75b355cf5825bde" Name="Diagram1">
+        <EntityTypeShape EntityType="RahmanDbModel.tblOrderDt" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RahmanDbModel.tblOrderMst" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RahmanDbModel.tblCategory" Width="1.5" PointX="0.75" PointY="3" />
+        <EntityTypeShape EntityType="RahmanDbModel.tblProduct" Width="1.5" PointX="2.5" PointY="3" />
+        <EntityTypeShape EntityType="RahmanDbModel.tblProductDetail" Width="1.5" PointX="6.125" PointY="0.75" />
+        <EntityTypeShape EntityType="RahmanDbModel.CustOrderDetail" Width="1.5" PointX="4.375" PointY="3" />
+        <EntityTypeShape EntityType="RahmanDbModel.tblCustDetail" Width="1.5" PointX="4.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,49 @@
+﻿@model IEnumerable<RdplForm.tblProductDetail>
+
+@{
+    ViewBag.Title = "ShoppingPage";
+    Layout = "~/Views/Shared/_SiteMaster.cshtml";
+}
+
+<h2>Mobiles Shop</h2>
+
+<section class="content">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-yellow">
+                    <div class="inner">
+                        <h3 style="color:brown">@item.CompanyName</h3>
+                        <p style="color:black">@item.Price</p>
+                        <p style="color:black">@item.ProdDescription</p>
+                    </div>
+                    <div class="icon">
+                        @*<i class="ion ion-person-add"></i>*@
+                        <img src="@item.Images" width="70" height="100" />
+                    </div>
+                    <a href="#" class="small-box-footer" style="background-color: gray;" onclick="addtocart(@item.Id)">
+                        Add To Cart <i class="fa fa-arrow-circle-right"></i>
+
+                    </a>
+                    @*<a href="/ShoppingSite/ShippingDetails/@item.Id" class="small-box-footer" style="background-color: gray;">
+                        BUY NOW <i class="fa fa-arrow-circle-right"></i>
+
+                    </a>*@
+
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
